@@ -6,7 +6,9 @@ from pylons.controllers import WSGIController
 from pylons.templating import render_jinja2 as render
 
 class BaseController(WSGIController):
-
+  def __before__(self, *args):
+    self.mongodb = self._py_object.app_globals.db
+  
     def __call__(self, environ, start_response):
         """Invoke the Controller"""
         # WSGIController.__call__ dispatches to the Controller method
