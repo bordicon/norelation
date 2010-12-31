@@ -2,5 +2,63 @@
 {% extends "layout.html" %}
 
 {% block content %}
-It works!
+<h1 id="header">No Relation</h1>
 {% endblock content %}
+
+{% block inline_script %}
+<script type="text/javascript">Ext.onReady(function() {
+var stereotypesTpl = new Ext.XTemplate(
+  '<ul class="stereotypes">',
+    '<tpl for=".">',
+      '<li class="list_item stereotype">{title}</li>',
+    '</tpl>',
+  '</ul>'
+);
+
+var viewport = new Ext.Viewport({
+  layout: 'border',
+  items: [{
+    xtype: 'box',
+    region: 'north',
+    el: 'header',
+    height: 24
+  },{
+    xtype: 'panel',
+    region: 'west',
+    width: 210,
+    layout: 'accordion',
+    defaults: {xtype: 'panel'},
+    items: [
+      {% for s in c.sets %}
+        {
+          title: '{{ s.title }}',
+          items: [{
+            id: 'stereotype_list',
+            xtype: 'dataview',
+            itemSelector: '.list_item',
+            tpl: stereotypesTpl,
+            emptyText: 'No Stereotypes',
+            store: new Ext.data.JsonStore({
+              fields: ['title'],
+              root: 'stereotypes',
+              data: {
+                stereotypes: [
+                  {% for t in s.stereotypes %}
+                    {title: '{{ t.title }}'},
+                  {% endfor %}
+                ]
+              }
+            })
+          }]
+        },
+      {% endfor %}
+    ]
+  },{
+    xtype: 'panel',
+    region: 'center',
+    html: 'Empty center region',  
+  }]
+});
+
+});</script>
+{% endblock inline_script %}
