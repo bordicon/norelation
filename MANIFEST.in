@@ -1,0 +1,3 @@
+include no_relation/config/deployment.ini_tmpl
+recursive-include no_relation/public *
+recursive-include no_relation/templates *
