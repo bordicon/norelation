@@ -1,0 +1,22 @@
+<!-- vim :ft=htmljinja: -->
+<html>
+  <head>
+    <title>No Relation</title>
+    {% block stylesheets %}
+      <link rel="stylesheet" type="text/css" href="{{ url('css/ext-all-notheme.css') }}"/>
+      <link rel="stylesheet" type="text/css" href="{{ url('css/xtheme-gray.css') }}"/>
+      <link rel="stylesheet" type="text/css" href="{{ url('css/style.css') }}"/>
+    {% endblock stylesheets %}
+    {% block javascripts %}
+      <script type="text/javascript" src="{{ url('js/ext-base.js') }}"></script>
+      <script type="text/javascript" src="{{ url('js/ext-all.js') }}"></script>
+    {% endblock javascripts %}
+  </head>
+  <body>
+    {% block content %}
+    {% endblock content %}
+
+    {% block inline_script %}
+    {% endblock inline_script %}
+  </body>
+</html>

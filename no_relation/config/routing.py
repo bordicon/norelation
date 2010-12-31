@@ -7,20 +7,22 @@ refer to the routes manual at http://routes.groovie.org/docs/
 from routes import Mapper
 
 def make_map(config):
-    """Create, configure and return the routes Mapper"""
-    map = Mapper(directory=config['pylons.paths']['controllers'],
-                 always_scan=config['debug'])
-    map.minimization = False
-    map.explicit = False
+  """Create, configure and return the routes Mapper"""
+  map = Mapper(directory=config['pylons.paths']['controllers'],
+               always_scan=config['debug'])
+  map.minimization = False
+  map.explicit = False
 
-    # The ErrorController route (handles 404/500 error pages); it should
-    # likely stay at the top, ensuring it can always be resolved
-    map.connect('/error/{action}', controller='error')
-    map.connect('/error/{action}/{id}', controller='error')
+  # The ErrorController route (handles 404/500 error pages); it should
+  # likely stay at the top, ensuring it can always be resolved
+  map.connect('/error/{action}', controller='error')
+  map.connect('/error/{action}/{id}', controller='error')
 
-    # CUSTOM ROUTES HERE
+  # CUSTOM ROUTES HERE
+  with map.submapper(controller='home', path_prefix='/home') as home:
+    home.connect('home', '', action='index', conditions={'method': ('GET', 'HEAD')})
 
-    map.connect('/{controller}/{action}')
-    map.connect('/{controller}/{action}/{id}')
+  map.connect('/{controller}/{action}')
+  map.connect('/{controller}/{action}/{id}')
 
-    return map
+  return map

@@ -1,0 +1,7 @@
+#stereotype_list .stereotype.list_item {
+  font-size: 11px;
+  padding: 4px 0 0px 18px;
+  margin: 2px 0;
+  height: 16px;
+  background: url('../images/icons/16x16/product.png') no-repeat center left;
+}
